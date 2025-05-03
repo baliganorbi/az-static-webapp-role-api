@@ -2,6 +2,10 @@
 
 This repository contains the implementation of an Azure Function App designed to manage user roles for an Azure Static Web App. It provides an API endpoint to determine the roles of a user based on their membership in Azure Active Directory (AAD) groups.
 
+## Purpose
+
+This project was built to provide the API as a "Bring Your Own Function" option for the [Azure Static Webapp Roles](https://github.com/baliganorbi/az-static-webapp-roles) project. It integrates seamlessly with the Azure Static Webapp to manage user roles effectively.
+
 ## Features
 
 - **Role Mapping**: Maps predefined roles (e.g., `admin`, `editor`) to Azure Active Directory group IDs.

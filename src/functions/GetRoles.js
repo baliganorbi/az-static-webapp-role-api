@@ -1,10 +1,9 @@
 const { app } = require('@azure/functions');
-const { fetch } = require('node-fetch').default;
 
 // add role names to this object to map them to group ids in your AAD tenant
 const roleGroupMappings = {
     'admin': 'd8a60c1d-1181-4954-a269-2740704caeca',
-    'editor': 'd8a60c1d-1181-4954-a269-2740704caeca'
+    'editor': '9406617a-e9bd-4083-9756-875054358e7e'
 };
 
 app.http('GetRoles', {
@@ -25,7 +24,7 @@ app.http('GetRoles', {
         context.log(`User roles: ${roles.join(', ')}`);
 
         return { 
-            jsonBody: roles 
+            jsonBody: { "roles": roles } 
         };
     }
 });
@@ -37,7 +36,6 @@ async function isUserInGroup(groupId, bearerToken, context) {
     context.log(`Checking if user is in group ${groupId}`);
     context.log(`URL: ${url}`);
 
-    /*
     const response = await fetch(url, {
         method: 'GET',
         headers: {
@@ -45,7 +43,10 @@ async function isUserInGroup(groupId, bearerToken, context) {
         },
     });
 
+    context.log(`Response status: ${response.status}`);
+
     if (response.status !== 200) {
+        context.log(`Failed to fetch group membership: ${response.statusText}`);
         return false;
     }
 
@@ -53,7 +54,4 @@ async function isUserInGroup(groupId, bearerToken, context) {
     const matchingGroups = graphResponse.value.filter(group => group.id === groupId);
 
     return matchingGroups.length > 0;
-    */
-    // Simulate a successful response for testing purposes
-    return true; // Simulate that the user is in the group for testing purposes
 }
